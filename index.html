@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags for Character Encoding and Viewport Settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page Title -->
+    <title>Sugandh - Premium Original Perfumes</title>
+    
+    <!-- Link to External CSS File -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ==================== NAVIGATION BAR ==================== -->
+    <!-- Sticky navigation that stays at top while scrolling -->
+    <nav>
+        <!-- Logo - REPLACE with your own text or image -->
+        <!-- Option 1: Text Logo (Current) -->
+        <img src="logo.png" alt="Sugandh Logo" class="logo-img">
+        
+        <!-- Option 2: Image Logo (Uncomment to use your brand logo)
+        <img src="path-to-your-logo.png" alt="Sugandh Logo" class="logo-img">
+        Replace 'path-to-your-logo.png' with your actual logo file path
+        -->
+        
+        <!-- Hamburger Menu Toggle Button for Mobile -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        
+        <!-- Navigation Links -->
+        <ul class="nav-links" id="navLinks">
+            <li><a onclick="scrollToSection('products')">Shop</a></li>
+            <li><a onclick="scrollToSection('about')">About</a></li>
+            <li><a onclick="scrollToSection('contact')">Contact</a></li>
+            <!-- Shopping Cart Icon with Badge Counter -->
+            <li class="cart-icon" onclick="toggleCart()">
+                🛍️
+                <span class="cart-count" id="cartCount">0</span>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <!-- Main banner section with brand message and CTA button -->
+    <section class="hero">
+        <h1>Sugandh</h1>
+        <p>Original Perfumes That Last for Hours</p>
+        <!-- Call to Action Button - navigates to products section -->
+        <button class="cta-button" onclick="scrollToSection('products')">Shop Now</button>
+    </section>
+
+    <!-- ==================== PRODUCTS SECTION ==================== -->
+    <!-- Displays all available perfume products in a grid layout -->
+    <section class="products-section" id="products">
+        <h2 class="section-title">Our Collection</h2>
+        <!-- Products will be dynamically rendered here by JavaScript -->
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <!-- Brand story and value proposition -->
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About Sugandh</h2>
+                <p>At Sugandh, we craft original, long-lasting perfumes using the finest ingredients from around the world. Each fragrance is carefully curated to provide an unforgettable olfactory experience.</p>
+                <p>Our commitment to quality ensures that every bottle delivers hours of premium fragrance that complements your unique personality and style.</p>
+                <p>Discover your signature scent from our diverse collection of original perfumes.</p>
+            </div>
+            <!-- Decorative image placeholder -->
+            <div class="about-image">🌹</div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <!-- Customer inquiry form -->
+    <section class="products-section" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div style="max-width: 500px; margin: 0 auto;">
+            <form id="contactForm">
+                <!-- Name Input Field -->
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" required placeholder="Your name">
+                </div>
+                
+                <!-- Email Input Field -->
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="your@email.com">
+                </div>
+                
+                <!-- Message Text Area -->
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: 2px; font-family: inherit; resize: vertical; min-height: 120px;" required placeholder="Your message..."></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="cta-button" style="width: 100%; text-align: center;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <!-- Website footer with links and copyright -->
+    <footer>
+        <p>&copy; 2026 Sugandh - Original Perfumes. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#products">Shop</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div>
+    </footer>
+
+    <!-- ==================== CART MODAL (SIDEBAR) ==================== -->
+    <!-- Slide-out cart panel showing selected items -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-sidebar">
+            <!-- Cart Header with Close Button -->
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <button class="close-btn" onclick="toggleCart()">✕</button>
+            </div>
+            
+            <!-- Cart Items Container - Dynamically populated -->
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">Your cart is empty</div>
+            </div>
+            
+            <!-- Cart Footer with Total and Checkout Button -->
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">₹0</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CHECKOUT MODAL ==================== -->
+    <!-- Full checkout form with payment options -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <!-- Checkout Header -->
+            <div class="checkout-header">
+                <h2>Checkout</h2>
+                <button class="close-btn" onclick="closeCheckout()">✕</button>
+            </div>
+            
+            <!-- Checkout Form Body -->
+            <div class="checkout-body">
+                <!-- Success Message (shown after order placement) -->
+                <div class="success-message" id="successMessage">
+                    ✓ Order placed successfully! Thank you for your purchase.
+                </div>
+                
+                <form id="checkoutForm">
+                    <!-- Customer Information Fields -->
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" required placeholder="+91 98765 43210">
+                    </div>
+                    
+                    <!-- Delivery Address Fields -->
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" required placeholder="Street address">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" required placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <label>Postal Code</label>
+                            <input type="text" required placeholder="PIN code">
+                        </div>
+                    </div>
+
+                    <!-- Payment Method Selection -->
+                    <h3 style="font-size: 1.1rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-black);">Payment Method</h3>
+                    <div class="payment-methods">
+                        <div class="payment-option selected" data-payment="card" onclick="selectPayment(this)">
+                            💳 Card
+                        </div>
+                        <div class="payment-option" data-payment="upi" onclick="selectPayment(this)">
+                            📱 UPI
+                        </div>
+                        <div class="payment-option" data-payment="paypal" onclick="selectPayment(this)">
+                            🅿️ PayPal
+                        </div>
+                        <div class="payment-option" data-payment="netbanking" onclick="selectPayment(this)">
+                            🏦 Net Banking
+                        </div>
+                    </div>
+
+                    <!-- Payment Details - Card (shown by default) -->
+                    <div id="cardDetails" style="display: block;">
+                        <div class="form-group">
+                            <label>Card Number</label>
+                            <input type="text" required placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Expiry Date</label>
+                                <input type="text" required placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" required placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Details - UPI (hidden by default) -->
+                    <div id="upiDetails" style="display: none;">
+                        <div class="form-group">
+                            <label>UPI ID</label>
+                            <input type="text" required placeholder="yourname@upi">
+                        </div>
+                    </div>
+
+                    <!-- Order Summary Section -->
+                    <div class="order-summary">
+                        <div class="summary-item">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">₹0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Shipping:</span>
+                            <span id="shipping">₹0</span>
+                        </div>
+                        <div class="summary-item summary-total">
+                            <span>Total:</span>
+                            <span id="orderTotal">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- Place Order Button -->
+                    <button type="submit" class="place-order-btn">Place Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT FILES ==================== -->
+    <!-- Link to external JavaScript files -->
+    <!-- Product and Cart Management -->
+    <script src="products.js"></script>
+    <!-- Cart Functionality -->
+    <script src="cart.js"></script>
+    <!-- Checkout and Payment Handling -->
+    <script src="checkout.js"></script>
+    <!-- UI Interactions (Navigation, Modals, etc.) -->
+    <script src="ui.js"></script>
+</body>
+</html>
