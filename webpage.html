@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sungandh - Premium Perfumes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2d2d2d;
+            --secondary-color: #8b7355;
+            --accent-color: #d4af37;
+            --light-bg: #fafaf8;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+            --border-color: #e8e8e8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+            font-style: italic;
+            font-family: 'Italianno', cursive;
+            text-transform: lowercase;
+        }
+
+        .logo::first-letter {
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-dark);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-color);
+            color: #000;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #fafaf8 0%, #f0ebe0 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-style: italic;
+            font-family: 'Italianno', cursive;
+            text-transform: lowercase;
+        }
+
+        .hero h1::first-letter {
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-light);
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 40px;
+            background: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--primary-color);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 40px;
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        /* Featured Section */
+        .featured-title {
+            padding: 60px 40px 40px;
+            text-align: center;
+        }
+
+        .featured-title h2 {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .featured-title p {
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 300;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            margin-bottom: 20px;
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .product-card:hover .product-image {
+            background: #f5f0e8;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid var(--text-dark);
+            color: var(--text-dark);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--text-dark);
+            color: #fff;
+        }
+
+        .sold-out {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .sold-out-text {
+            color: var(--text-light);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Brand Story */
+        .brand-story {
+            padding: 80px 40px;
+            background: var(--light-bg);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .brand-story h3 {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .brand-story p {
+            color: var(--text-light);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 40px;
+            border-radius: 2px;
+            max-width: 600px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from { transform: translate(-50%, -60%); opacity: 0; }
+            to { transform: translate(-50%, -50%); opacity: 1; }
+        }
+
+        .close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: var(--secondary-color);
+        }
+
+        .modal-product-image {
+            width: 100%;
+            height: 250px;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            margin-bottom: 20px;
+            border-radius: 2px;
+        }
+
+        .modal-product-details {
+            text-align: center;
+        }
+
+        .modal-product-details h2 {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .modal-product-details p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .modal-price {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .quantity-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .quantity-btn:hover {
+            background: var(--light-bg);
+        }
+
+        .modal-add-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .modal-add-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .cart-item-remove {
+            cursor: pointer;
+            color: var(--secondary-color);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .checkout-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .footer-section p {
+            font-size: 13px;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .product-image {
+                height: 200px;
+                font-size: 60px;
+            }
+
+            .filter-section {
+                padding: 20px;
+                gap: 10px;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .brand-story {
+                padding: 40px 20px;
+            }
+
+            .brand-story h3 {
+                font-size: 22px;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">SUNGANDH</div>
+        <ul class="nav-links">
+            <li><a onclick="scrollToSection('featured')">SHOP</a></li>
+            <li><a onclick="scrollToSection('story')">ABOUT</a></li>
+            <li><a onclick="openCart()">CONTACT</a></li>
+        </ul>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛍️
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>SUNGANDH</h1>
+        <p>Handcrafted Fragrances, Timeless Elegance</p>
+        <button class="cta-button" onclick="scrollToSection('featured')">EXPLORE COLLECTION</button>
+    </section>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <button class="filter-btn active" onclick="filterProducts('all')">ALL</button>
+        <button class="filter-btn" onclick="filterProducts('floral')">FLORAL</button>
+        <button class="filter-btn" onclick="filterProducts('woody')">WOODY</button>
+        <button class="filter-btn" onclick="filterProducts('fruity')">FRUITY</button>
+        <button class="filter-btn" onclick="filterProducts('oriental')">ORIENTAL</button>
+    </div>
+
+    <!-- Featured Products -->
+    <section id="featured">
+        <div class="featured-title">
+            <h2>FEATURED COLLECTION</h2>
+            <p>Hand-poured with precision. Crafted with passion.</p>
+        </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products loaded by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Brand Story -->
+    <section id="story" class="brand-story">
+        <h3>Our Story</h3>
+        <p>At Sungandh, we believe that fragrance is more than just a scent—it's a memory, a moment, an emotion captured in a bottle. Every perfume we create is handcrafted with the finest ingredients, bringing together tradition and modern artistry.</p>
+        <p>Each fragrance tells a story. Each bottle holds a piece of your journey. We're committed to creating timeless scents that resonate with your soul.</p>
+    </section>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-product-image" id="modalImage">🧴</div>
+            <div class="modal-product-details">
+                <h2 id="modalProductName"></h2>
+                <p id="modalProductDescription"></p>
+                <div class="modal-price" id="modalProductPrice"></div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                    <span id="quantityDisplay">1</span>
+                    <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                </div>
+                <button class="modal-add-btn" onclick="addToCartFromModal()">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>YOUR CART</h3>
+            <span class="close" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>TOTAL</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">CHECKOUT</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>CONTACT US</h4>
+                <div class="contact-info">
+                    <p>Email: <a href="mailto:hello@sungandh.com">hello@sungandh.com</a></p>
+                    <p>Phone: +91 98765 43210</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>CRAFTED WITH LOVE</h4>
+                <p>Hand-poured fragrances made fresh after every order. Delivery in 15-20 days.</p>
+            </div>
+            <div class="footer-section">
+                <p>&copy; 2025 Sungandh. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product Database
+        const products = [
+            {
+                id: 1,
+                name: 'NIGHT JASMINE',
+                price: 2499,
+                category: 'floral',
+                description: 'A captivating blend of night-blooming jasmine with subtle notes of sandalwood and musk. Perfect for evening elegance.',
+                emoji: '🌸',
+                inStock: true
+            },
+            {
+                id: 2,
+                name: 'CEDAR ESSENCE',
+                price: 2799,
+                category: 'woody',
+                description: 'Rich cedarwood infused with hints of bergamot and vanilla. A timeless woody fragrance for the refined soul.',
+                emoji: '🌲',
+                inStock: true
+            },
+            {
+                id: 3,
+                name: 'MANGO DREAM',
+                price: 2299,
+                category: 'fruity',
+                description: 'Tropical mango with notes of passion fruit and white tea. Refreshing and vibrant all day.',
+                emoji: '🥭',
+                inStock: true
+            },
+            {
+                id: 4,
+                name: 'AMBER ROSE',
+                price: 2599,
+                category: 'oriental',
+                description: 'Luxurious rose petals meet warm amber and exotic spices. A sensual, long-lasting fragrance.',
+                emoji: '🌹',
+                inStock: true
+            },
+            {
+                id: 5,
+                name: 'OCEAN BREEZE',
+                price: 2199,
+                category: 'fruity',
+                description: 'Salt, water lily, and citrus notes create a fresh, seaside escape. Unisex and versatile.',
+                emoji: '🌊',
+                inStock: true
+            },
+            {
+                id: 6,
+                name: 'GARDENIA SILK',
+                price: 2699,
+                category: 'floral',
+                description: 'Delicate gardenia blended with silk musks and creamy vanilla. Softly elegant.',
+                emoji: '🏵️',
+                inStock: true
+            },
+            {
+                id: 7,
+                name: 'SPICE MYSTERY',
+                price: 2899,
+                category: 'oriental',
+                description: 'Intriguing blend of cardamom, cinnamon, and clove with oud. Mysterious and bold.',
+                emoji: '🌶️',
+                inStock: false
+            },
+            {
+                id: 8,
+                name: 'LAVENDER DREAMS',
+                price: 1999,
+                category: 'floral',
+                description: 'Pure lavender with hints of chamomile and green tea. Calming and soothing.',
+                emoji: '💜',
+                inStock: true
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+        let selectedProduct = null;
+        let selectedQuantity = 1;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts(products);
+        });
+
+        // Display Products
+        function displayProducts(productsToDisplay) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            productsToDisplay.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                if (!product.inStock) productCard.classList.add('sold-out');
+
+                productCard.innerHTML = `
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">₹${product.price.toLocaleString('en-IN')}</div>
+                    ${product.inStock ? 
+                        `<button class="add-to-cart-btn" onclick="openProductModal(${product.id})">VIEW DETAILS</button>` 
+                        : 
+                        `<div class="sold-out-text">SOLD OUT</div>`
+                    }
+                `;
+
+                grid.appendChild(productCard);
+            });
+        }
+
+        // Filter Products
+        function filterProducts(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const filtered = category === 'all' 
+                ? products 
+                : products.filter(p => p.category === category);
+            
+            displayProducts(filtered);
+        }
+
+        // Modal Functions
+        function openProductModal(productId) {
+            selectedProduct = products.find(p => p.id === productId);
+            selectedQuantity = 1;
+            document.getElementById('quantityDisplay').textContent = '1';
+            
+            document.getElementById('modalImage').textContent = selectedProduct.emoji;
+            document.getElementById('modalProductName').textContent = selectedProduct.name;
+            document.getElementById('modalProductDescription').textContent = selectedProduct.description;
+            document.getElementById('modalProductPrice').textContent = `₹${selectedProduct.price.toLocaleString('en-IN')}`;
+            
+            document.getElementById('productModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function increaseQuantity() {
+            selectedQuantity++;
+            document.getElementById('quantityDisplay').textContent = selectedQuantity;
+        }
+
+        function decreaseQuantity() {
+            if (selectedQuantity > 1) {
+                selectedQuantity--;
+                document.getElementById('quantityDisplay').textContent = selectedQuantity;
+            }
+        }
+
+        // Cart Functions
+        function addToCartFromModal() {
+            addToCart(selectedProduct.id, selectedQuantity);
+            closeModal();
+        }
+
+        function addToCart(productId, quantity) {
+            const product = products.find(p => p.id === productId);
+            const cartItem = cart.find(item => item.id === productId);
+
+            if (cartItem) {
+                cartItem.quantity += quantity;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: quantity
+                });
+            }
+
+            updateCart();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = cartCount;
+
+            const cartItemsContainer = document.getElementById('cartItems');
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">₹${item.price.toLocaleString('en-IN')} × ${item.quantity}</div>
+                        </div>
+                        <div class="cart-item-remove" onclick="removeFromCart(${item.id})">Remove</div>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cartTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+        }
+
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('active');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            alert('Thank you for your order! We will contact you soon to confirm delivery details.');
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sungandh - Premium Perfumes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">SUNGANDH</div>
+        <ul class="nav-links">
+            <li><a href="#home" onclick="navigateTo('home')">HOME</a></li>
+            <li><a href="#shop" onclick="navigateTo('shop')">SHOP</a></li>
+            <li><a href="#about" onclick="navigateTo('about')">ABOUT</a></li>
+            <li><a href="#contact" onclick="navigateTo('contact')">CONTACT</a></li>
+        </ul>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛍️
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <h1>Sungandh</h1>
+            <p>Handcrafted Fragrances, Timeless Elegance</p>
+            <button class="cta-button" onclick="navigateTo('shop')">EXPLORE COLLECTION</button>
+        </section>
+    </div>
+
+    <!-- SHOP PAGE -->
+    <div id="shop" class="page">
+        <div class="filter-section">
+            <button class="filter-btn active" onclick="filterProducts('all')">ALL</button>
+            <button class="filter-btn" onclick="filterProducts('floral')">FLORAL</button>
+            <button class="filter-btn" onclick="filterProducts('woody')">WOODY</button>
+            <button class="filter-btn" onclick="filterProducts('fruity')">FRUITY</button>
+            <button class="filter-btn" onclick="filterProducts('oriental')">ORIENTAL</button>
+        </div>
+
+        <section id="featured">
+            <div class="featured-title">
+                <h2>FEATURED COLLECTION</h2>
+                <p>Hand-poured with precision. Crafted with passion.</p>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products loaded by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <section class="brand-story">
+            <h3>Our Story</h3>
+            <p>At Sungandh, we believe that fragrance is more than just a scent—it's a memory, a moment, an emotion captured in a bottle. Every perfume we create is handcrafted with the finest ingredients, bringing together tradition and modern artistry.</p>
+            <p>Each fragrance tells a story. Each bottle holds a piece of your journey. We're committed to creating timeless scents that resonate with your soul.</p>
+            
+            <h3 style="margin-top: 60px;">Our Process</h3>
+            <p>We source the finest ingredients from around the world. Each fragrance is carefully blended and tested to ensure perfection. Hand-poured with love, every bottle is a masterpiece.</p>
+            <p>Our commitment to quality means we create in small batches, ensuring freshness and exclusivity for our customers.</p>
+
+            <h3 style="margin-top: 60px;">Why Choose Sungandh?</h3>
+            <ul style="text-align: left; max-width: 600px; margin: 20px auto; color: var(--text-light);">
+                <li style="margin-bottom: 15px;">✨ Handcrafted with premium ingredients</li>
+                <li style="margin-bottom: 15px;">🌿 Eco-friendly and sustainable packaging</li>
+                <li style="margin-bottom: 15px;">💎 Long-lasting, luxurious fragrances</li>
+                <li style="margin-bottom: 15px;">🎁 Perfect for gifts and special occasions</li>
+                <li style="margin-bottom: 15px;">📦 Made fresh after every order</li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <section class="contact-section">
+            <h2>Get In Touch</h2>
+            <p style="margin-bottom: 40px; font-size: 16px; color: var(--text-light);">Have questions? We'd love to hear from you. Reach out anytime!</p>
+            
+            <div class="contact-container">
+                <div class="contact-info-box">
+                    <h4>Email</h4>
+                    <p><a href="mailto:hello@sungandh.com">hello@sungandh.com</a></p>
+                </div>
+                <div class="contact-info-box">
+                    <h4>Phone</h4>
+                    <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                </div>
+                <div class="contact-info-box">
+                    <h4>Address</h4>
+                    <p>Mumbai, India<br>Crafted with Love</p>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <input type="text" placeholder="Your Name" required style="margin-bottom: 15px;">
+                <input type="email" placeholder="Your Email" required style="margin-bottom: 15px;">
+                <textarea placeholder="Your Message" rows="5" required style="margin-bottom: 15px;"></textarea>
+                <button type="submit" class="cta-button">SEND MESSAGE</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-product-image" id="modalImage">🧴</div>
+            <div class="modal-product-details">
+                <h2 id="modalProductName"></h2>
+                <p id="modalProductDescription"></p>
+                <div class="modal-price" id="modalProductPrice"></div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                    <span id="quantityDisplay">1</span>
+                    <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                </div>
+                <button class="modal-add-btn" onclick="addToCartFromModal()">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>YOUR CART</h3>
+            <span class="close" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>TOTAL</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToPayment()">PROCEED TO PAYMENT</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FOLLOW US</h4>
+                <p>Instagram • Facebook • Twitter</p>
+            </div>
+            <div class="footer-section">
+                <h4>CRAFTED WITH LOVE</h4>
+                <p>Hand-poured fragrances made fresh after every order. Delivery in 15-20 days.</p>
+            </div>
+            <div class="footer-section">
+                <p>&copy; 2025 Sungandh. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Razorpay Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
